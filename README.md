@@ -2,15 +2,6 @@
 
 Um sistema simples de gerenciamento de usuários demonstrando arquitetura em camadas com interfaces console e web.
 
-<style>
-img {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-}
-</style>
-
 ## Arquitetura
 
 ### Arquitetura de Alto Nível
