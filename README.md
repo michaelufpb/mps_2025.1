@@ -2,6 +2,15 @@
 
 Um sistema simples de gerenciamento de usuários demonstrando arquitetura em camadas com interfaces console e web.
 
+<style>
+img {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+}
+</style>
+
 ## Arquitetura
 
 ### Arquitetura de Alto Nível
@@ -13,7 +22,7 @@ O sistema segue um padrão simples em camadas:
 - **User**: Representa o modelo de dados do usuário
 
 ### Arquitetura Detalhada
-![Arquitetura Detalhada](diagram_lab02.drawio)
+![Arquitetura Detalhada](diagram_lab02.png)
 
 O sistema é organizado em quatro camadas:
 
