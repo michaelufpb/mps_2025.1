@@ -1,19 +1,13 @@
-from repository.user_repository import UserRepository
-from repository.mongo_user_repository import MongoUserRepository
-from controller.user_controller import UserController
-from ui.user_ui import UserUI
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from cli.reservalab_cli import ReservaLabCLI
 
 def main():
-    persistence_type = input("Choose persistence method (RAM/MONGO): ").strip().upper()
-
-    if persistence_type == "MONGO":
-        repository = MongoUserRepository()
-    else:
-        repository = UserRepository()
-
-    controller = UserController(repository)
-    ui = UserUI(controller)
-    ui.start()
+    """Função principal que inicia o sistema ReservaLab"""
+    cli = ReservaLabCLI()
+    cli.iniciar()
 
 if __name__ == "__main__":
     main()

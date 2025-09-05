@@ -1,13 +1,11 @@
-# Core dependencies for the ReservaLab User Management System
-
-# Data manipulation and analysis
-pandas>=2.0.0
-
-# Database connectivity
-pymongo>=4.5.0
+# Core dependencies for the ReservaLab System
 
 # Standard library modules (no installation needed):
+# - json (JSON file operations)
+# - datetime (date and time operations)
 # - re (regex operations)
+# - os (file system operations)
+# - typing (type hints)
 # - input() function
 # - print() function
 # - Exception handling
