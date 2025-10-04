@@ -1,6 +1,6 @@
 # Sistema de Gerenciamento de Usuários ReservaLab
 
-Um sistema simples de gerenciamento de usuários demonstrando arquitetura em camadas com interfaces console e web.
+Um sistema simples de gerenciamento de usuários demonstrando arquitetura em camadas com interfaces console.
 
 ## Arquitetura
 
@@ -19,7 +19,6 @@ O sistema é organizado em quatro camadas:
 
 #### 1. Camada de Visualização
 - **UserUI**: Interface console (`user_ui.py`)
-- **UserUIStreamlit**: Interface web (`user_ui_streamlit.py`)
 
 #### 2. Camada de Controle
 - **UserController**: Lógica de negócio, validação, operações de usuário
@@ -33,17 +32,10 @@ O sistema é organizado em quatro camadas:
 
 ## Início Rápido
 
-### Versão Console
+### Console
 ```bash
 cd ReservaLab
 python app/main.py
-```
-
-### Versão Web (Streamlit)
-```bash
-cd ReservaLab
-pip install -r requirements.txt
-streamlit run streamlit_app.py
 ```
 
 ## Funcionalidades
