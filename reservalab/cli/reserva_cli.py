@@ -1,4 +1,5 @@
 from cli.base_cli import BaseCLI
+from controller.commands.command import ListarTodasReservasCommand
 
 class ReservaCLI(BaseCLI):
     """CLI para gerenciamento de reservas"""
@@ -13,7 +14,8 @@ class ReservaCLI(BaseCLI):
     
     def listar_todas_reservas(self):
         """Lista todas as reservas"""
-        reservas = self.facade.get_gerente_reserva().listar_todas_reservas()
+        command = ListarTodasReservasCommand(self.facade.get_gerente_reserva())
+        reservas = self.facade.execute_command(command)
         self.exibir_lista(reservas, "TODAS AS RESERVAS")
     
     def processar_menu_reservas_admin(self):

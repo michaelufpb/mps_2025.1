@@ -1,0 +1,106 @@
+===========================================================
+PADRÕES DE PROJETO NO RESERVALAB – DOCUMENTAÇÃO DETALHADA
+
+-----------------------------------------------------------
+SINGLETON
+-----------------------------------------------------------
+
+Tonalidade: Cinza claro
+
+Razão: Garante uma única instância global para controle centralizado,
+evitando duplicações e inconsistências em acessos compartilhados.
+
+Aplicado em: gerenciamento de fachada e repositórios para acesso unificado.
+
+Classes envolvidas:
+controller/facade_singleton.py
+
+-----------------------------------------------------------
+FACTORY METHOD
+-----------------------------------------------------------
+
+Tonalidade: Amarelo ouro
+
+Razão: Centraliza a criação de objetos relacionados, permitindo
+flexibilidade na instanciação sem expor lógica interna.
+
+Aplicado em: criação de gerentes de negócios.
+
+Classes envolvidas:
+controller/gerente_factory.py
+
+-----------------------------------------------------------
+COMMAND
+-----------------------------------------------------------
+
+Tonalidade: Verde médio
+
+Razão: Encapsula solicitações como objetos, permitindo parametrização,
+enfileiramento e desfazer de ações.
+
+Aplicado em: execução de operações de CRUD e consultas via fachada.
+
+Classes envolvidas:
+controller/commands/command.py
+Todas as subclasses como CadastrarLabCommand, ListarUsuariosCommand, etc.
+
+-----------------------------------------------------------
+DATA ACCESS OBJECT (DAO)
+-----------------------------------------------------------
+
+Tonalidade: Cinza escuro
+
+Razão: Abstrai e encapsula o acesso a fontes de dados, separando
+a lógica de persistência da camada de negócios.
+
+Aplicado em: operações CRUD sobre usuários, labs e reservas.
+
+Classes envolvidas:
+repository/dao.py (interfaces UserDAO, LabDAO, ReservaDAO)
+repository/json_repository.py (implementações JSONUserDAO, JSONLabDAO, JSONReservaDAO)
+
+-----------------------------------------------------------
+MEMENTO
+-----------------------------------------------------------
+
+Tonalidade: Azul claro
+
+Razão: Captura e restaura o estado interno de um objeto sem violar
+encapsulamento, para operações de desfazer.
+
+Aplicado em: desfazer a última atualização de laboratórios.
+
+Classes envolvidas:
+entity/memento.py (Memento, LabOriginator)
+controller/gerente_lab.py (integração com mementos)
+
+-----------------------------------------------------------
+TEMPLATE METHOD
+-----------------------------------------------------------
+
+Tonalidade: Amarelo limão
+
+Razão: Define o esqueleto de um algoritmo, permitindo que subclasses
+variem passos específicos enquanto mantém a estrutura.
+
+Aplicado em: geração de relatórios de estatísticas (HTML e PDF).
+
+Classes envolvidas:
+controller/report_generator.py (ReportGenerator, HTMLReportGenerator, PDFReportGenerator)
+
+-----------------------------------------------------------
+ADAPTER
+-----------------------------------------------------------
+
+Tonalidade: Azul escuro
+
+Razão: Converte a interface de uma classe existente em outra esperada,
+permitindo integração com bibliotecas incompatíveis.
+
+Aplicado em: adaptação da biblioteca logging para registrar mensagens do CLI.
+
+Classes envolvidas:
+adapters/ilogger.py (ILogger)
+adapters/console_logger.py
+adapters/logging_adapter.py
+cli/base_cli.py (integração)

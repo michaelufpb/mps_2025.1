@@ -3,6 +3,9 @@ from controller.gerente_lab import GerenteLab
 from controller.gerente_usuario import GerenteUsuario
 from controller.gerente_reserva import GerenteReserva
 from entity.user import User
+from controller.commands.command import Command
+from controller.gerente_factory import GerenteFactory
+from controller.report_generator import HTMLReportGenerator, PDFReportGenerator
 
 class FacadeSingleton:
     _instance = None
@@ -16,9 +19,9 @@ class FacadeSingleton:
     def __init__(self):
         if not self._initialized:
             self.repository = JSONRepository()
-            self.gerente_lab = GerenteLab(self.repository)
-            self.gerente_usuario = GerenteUsuario(self.repository)
-            self.gerente_reserva = GerenteReserva(self.repository)
+            self.gerente_lab = GerenteFactory.create_gerente_lab(self.repository)
+            self.gerente_usuario = GerenteFactory.create_gerente_usuario(self.repository)
+            self.gerente_reserva = GerenteFactory.create_gerente_reserva(self.repository)
             
             # Cria usuário admin padrão se não existir
             self.gerente_usuario.criar_usuario_admin_padrao()
@@ -40,3 +43,14 @@ class FacadeSingleton:
     def autenticar_usuario(self, user_id: str, password: str) -> User:
         """Autentica um usuário"""
         return self.gerente_usuario.autenticar_usuario(user_id, password)
+    
+    def execute_command(self, command: Command):
+        return command.execute()
+    
+    def generate_html_report(self):
+        generator = HTMLReportGenerator(self.repository)
+        generator.generate_report()
+
+    def generate_pdf_report(self):
+        generator = PDFReportGenerator(self.repository)
+        generator.generate_report()

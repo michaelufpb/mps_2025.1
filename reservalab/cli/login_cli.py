@@ -32,13 +32,15 @@ class LoginCLI(BaseCLI):
         
         user_id = self.ler_texto("Login (máx 12 caracteres, sem números)")
         name = self.ler_texto("Nome completo")
-        password = self.ler_texto("Senha (min 8 caracteres, com maiúscula, minúscula, número e símbolo)")
+        password = self.ler_texto("Senha (min 8 caracteres, com maiúscula, minúscula, número e símbolo. No mínimo uma letra maiúscula e um caractere especial)")
         
-        sucesso = self.facade.get_gerente_usuario().cadastrar_usuario(user_id, name, "usuario", password)
+        sucesso, mensagem = self.facade.get_gerente_usuario().cadastrar_usuario(user_id, name, "usuario", password)
         if sucesso:
-            self.exibir_sucesso("Usuário cadastrado com sucesso! Faça login para continuar.")
+            self.exibir_sucesso(f"{mensagem} Faça login para continuar.")
             return True
-        return False
+        else:
+            self.exibir_erro(mensagem)
+            return False
     
     def processar_menu_login(self) -> tuple[User, bool]:
         """

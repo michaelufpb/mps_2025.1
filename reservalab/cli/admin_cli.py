@@ -18,7 +18,9 @@ class AdminCLI(BaseCLI):
         print("1. Gerenciar Laboratórios")
         print("2. Gerenciar Usuários")
         print("3. Gerenciar Reservas")
-        print("4. Logout")
+        print("4. Gerar Relatório HTML")
+        print("5. Gerar Relatório PDF")
+        print("6. Logout")
         
         return self.ler_opcao()
     
@@ -36,6 +38,10 @@ class AdminCLI(BaseCLI):
         elif opcao == "3":
             self.reserva_cli.processar_menu_reservas_admin()
         elif opcao == "4":
+            self.facade.generate_html_report()
+        elif opcao == "5":
+            self.facade.generate_pdf_report()
+        elif opcao == "6":
             self.exibir_sucesso("Logout realizado!")
             return False
         else:

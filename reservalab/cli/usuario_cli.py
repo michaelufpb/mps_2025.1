@@ -1,4 +1,5 @@
 from cli.base_cli import BaseCLI
+from controller.commands.command import ListarUsuariosCommand
 
 class UsuarioCLI(BaseCLI):
     """CLI para gerenciamento de usuários"""
@@ -13,7 +14,8 @@ class UsuarioCLI(BaseCLI):
     
     def listar_usuarios(self):
         """Lista todos os usuários"""
-        usuarios = self.facade.get_gerente_usuario().listar_usuarios()
+        command = ListarUsuariosCommand(self.facade.get_gerente_usuario())
+        usuarios = self.facade.execute_command(command)
         self.exibir_lista(usuarios, "USUÁRIOS CADASTRADOS")
     
     def processar_menu_usuarios(self):

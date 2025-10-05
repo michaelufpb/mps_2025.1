@@ -1,4 +1,5 @@
 from cli.base_cli import BaseCLI
+from controller.commands.command import CadastrarLabCommand, ListarLabsCommand, BuscarLabCommand, AtualizarLabCommand, RemoverLabCommand
 
 class LabCLI(BaseCLI):
     """CLI para gerenciamento de laboratórios"""
@@ -10,7 +11,8 @@ class LabCLI(BaseCLI):
         print("2. Listar Laboratórios")
         print("3. Atualizar Laboratório")
         print("4. Remover Laboratório")
-        print("5. Voltar")
+        print("5. Desfazer Última Atualização")
+        print("6. Voltar")
         
         return self.ler_opcao()
     
@@ -25,18 +27,21 @@ class LabCLI(BaseCLI):
         equipamentos_str = self.ler_texto("Equipamentos (separados por vírgula, ou Enter para nenhum)")
         equipamentos = [eq.strip() for eq in equipamentos_str.split(",")] if equipamentos_str else []
         
-        self.facade.get_gerente_lab().cadastrar_lab(lab_id, nome, capacidade, equipamentos)
+        command = CadastrarLabCommand(self.facade.get_gerente_lab(), lab_id, nome, capacidade, equipamentos)
+        self.facade.execute_command(command)
     
     def listar_labs(self):
         """Lista todos os laboratórios"""
-        labs = self.facade.get_gerente_lab().listar_labs()
+        command = ListarLabsCommand(self.facade.get_gerente_lab())
+        labs = self.facade.execute_command(command)
         self.exibir_lista(labs, "LABORATÓRIOS CADASTRADOS")
     
     def atualizar_lab(self):
         """Atualiza um laboratório"""
         lab_id = self.ler_texto("ID do laboratório a ser atualizado")
         
-        lab = self.facade.get_gerente_lab().buscar_lab(lab_id)
+        command_buscar = BuscarLabCommand(self.facade.get_gerente_lab(), lab_id)
+        lab = self.facade.execute_command(command_buscar)
         if not lab:
             self.exibir_erro(f"Laboratório '{lab_id}' não encontrado.")
             return
@@ -56,16 +61,22 @@ class LabCLI(BaseCLI):
         equipamentos_str = self.ler_texto(f"Equipamentos atuais ({', '.join(lab.equipamentos)})")
         equipamentos = [eq.strip() for eq in equipamentos_str.split(",")] if equipamentos_str else lab.equipamentos
         
-        self.facade.get_gerente_lab().atualizar_lab(lab_id, nome, capacidade, equipamentos)
+        command = AtualizarLabCommand(self.facade.get_gerente_lab(), lab_id, nome, capacidade, equipamentos)
+        self.facade.execute_command(command)
     
     def remover_lab(self):
         """Remove um laboratório"""
         lab_id = self.ler_texto("ID do laboratório a ser removido")
         
         if self.confirmar_operacao(f"Tem certeza que deseja remover o laboratório '{lab_id}'?"):
-            self.facade.get_gerente_lab().remover_lab(lab_id)
+            command = RemoverLabCommand(self.facade.get_gerente_lab(), lab_id)
+            self.facade.execute_command(command)
         else:
             self.exibir_sucesso("Operação cancelada.")
+    
+    def undo_update_lab(self):
+        lab_id = self.ler_texto("ID do laboratório para desfazer atualização")
+        self.facade.get_gerente_lab().undo_update_lab(lab_id)
     
     def processar_menu_labs(self):
         """Processa menu de gerenciamento de laboratórios"""
@@ -81,6 +92,8 @@ class LabCLI(BaseCLI):
             elif opcao == "4":
                 self.remover_lab()
             elif opcao == "5":
+                self.undo_update_lab()
+            elif opcao == "6":
                 break
             else:
                 self.exibir_erro("Opção inválida!")

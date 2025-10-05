@@ -5,6 +5,24 @@
       "name": "Administrador",
       "role": "admin",
       "password": "Admin123!"
+    },
+    {
+      "user_id": "michael",
+      "name": "Michael Pinho",
+      "role": "usuario",
+      "password": "Senha@456"
+    },
+    {
+      "user_id": "samuel",
+      "name": "Samuel Ribeiro",
+      "role": "usuario",
+      "password": "Samuca12$"
+    },
+    {
+      "user_id": "maria",
+      "name": "Maria Clara",
+      "role": "usuario",
+      "password": "Mama456@@"
     }
   ],
   "labs": [
@@ -95,7 +113,34 @@
         "Osciloscópios",
         "Multímetros"
       ]
+    },
+    {
+      "id": "LAB001",
+      "nome": "Test Lab",
+      "capacidade": 10,
+      "equipamentos": [
+        "Projetor",
+        "Computador"
+      ]
+    },
+    {
+      "id": "LAB00001",
+      "nome": "Lab Origem",
+      "capacidade": 20,
+      "equipamentos": [
+        "Projetor"
+      ]
     }
   ],
-  "reservas": []
+  "reservas": [
+    {
+      "id": "4109E321",
+      "lab_id": "LAB001",
+      "usuario_id": "michael",
+      "data_inicio": "2025-10-05T15:00:00",
+      "data_fim": "2025-10-05T16:00:00",
+      "motivo": "Estudar",
+      "status": "cancelada"
+    }
+  ]
 }

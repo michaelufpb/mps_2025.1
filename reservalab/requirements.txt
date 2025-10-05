@@ -1,0 +1,12 @@
+# Core dependencies for the ReservaLab System
+
+# Standard library modules (no installation needed):
+# - json (JSON file operations)
+# - datetime (date and time operations)
+# - re (regex operations)
+# - os (file system operations)
+# - typing (type hints)
+# - input() function
+# - print() function
+# - Exception handling
+# - List and dictionary operations 

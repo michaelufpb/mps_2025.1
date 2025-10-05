@@ -1,5 +1,6 @@
 from cli.base_cli import BaseCLI
 from cli.reserva_cli import ReservaCLI
+from controller.commands.command import ListarLabsCommand, ConsultarDisponibilidadeCommand, CriarReservaCommand, ListarReservasUsuarioCommand, CancelarReservaCommand
 
 class UsuarioMenuCLI(BaseCLI):
     """CLI para menu do usuário comum"""
@@ -22,7 +23,8 @@ class UsuarioMenuCLI(BaseCLI):
     
     def consultar_labs(self):
         """Consulta laboratórios disponíveis"""
-        labs = self.facade.get_gerente_lab().listar_labs()
+        command = ListarLabsCommand(self.facade.get_gerente_lab())
+        labs = self.facade.execute_command(command)
         self.exibir_lista(labs, "LABORATÓRIOS DISPONÍVEIS")
     
     def consultar_disponibilidade(self):
@@ -35,14 +37,16 @@ class UsuarioMenuCLI(BaseCLI):
         print("Data e hora de fim:")
         data_fim = self.ler_data_hora("Exemplo: 15/12/2024 16:00")
         
-        self.facade.get_gerente_reserva().consultar_disponibilidade(lab_id, data_inicio, data_fim)
+        command = ConsultarDisponibilidadeCommand(self.facade.get_gerente_reserva(), lab_id, data_inicio, data_fim)
+        self.facade.execute_command(command)
     
     def fazer_reserva(self):
         """Faz uma nova reserva"""
         self.exibir_secao("NOVA RESERVA")
         
         # Lista laboratórios disponíveis
-        labs = self.facade.get_gerente_lab().listar_labs()
+        command_labs = ListarLabsCommand(self.facade.get_gerente_lab())
+        labs = self.facade.execute_command(command_labs)
         if not labs:
             self.exibir_erro("Nenhum laboratório cadastrado.")
             return
@@ -61,13 +65,13 @@ class UsuarioMenuCLI(BaseCLI):
         
         motivo = self.ler_texto("Motivo da reserva")
         
-        self.facade.get_gerente_reserva().criar_reserva(
-            lab_id, self.usuario_logado.user_id, data_inicio, data_fim, motivo
-        )
+        command = CriarReservaCommand(self.facade.get_gerente_reserva(), lab_id, self.usuario_logado.user_id, data_inicio, data_fim, motivo)
+        self.facade.execute_command(command)
     
     def minhas_reservas(self):
         """Lista reservas do usuário logado"""
-        reservas = self.facade.get_gerente_reserva().listar_reservas_usuario(self.usuario_logado.user_id)
+        command = ListarReservasUsuarioCommand(self.facade.get_gerente_reserva(), self.usuario_logado.user_id)
+        reservas = self.facade.execute_command(command)
         self.exibir_lista(reservas, "MINHAS RESERVAS")
     
     def cancelar_reserva(self):
@@ -75,7 +79,8 @@ class UsuarioMenuCLI(BaseCLI):
         reserva_id = self.ler_texto("ID da reserva a ser cancelada")
         
         if self.confirmar_operacao(f"Tem certeza que deseja cancelar a reserva '{reserva_id}'?"):
-            self.facade.get_gerente_reserva().cancelar_reserva(reserva_id, self.usuario_logado.user_id)
+            command = CancelarReservaCommand(self.facade.get_gerente_reserva(), reserva_id, self.usuario_logado.user_id)
+            self.facade.execute_command(command)
         else:
             self.exibir_sucesso("Operação cancelada.")
     

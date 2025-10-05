@@ -1,6 +1,8 @@
 from datetime import datetime
 from controller.facade_singleton import FacadeSingleton
 from entity.user import User
+from adapters.console_logger import ConsoleLogger
+from adapters.logging_adapter import LoggingAdapter
 
 class BaseCLI:
     """Classe base com funcionalidades comuns para todas as telas CLI"""
@@ -8,6 +10,9 @@ class BaseCLI:
     def __init__(self, facade: FacadeSingleton, usuario_logado: User = None):
         self.facade = facade
         self.usuario_logado = usuario_logado
+        # Usar Adapter para logging: combina console e arquivo
+        self.console_logger = ConsoleLogger()
+        self.file_logger = LoggingAdapter()
     
     def exibir_cabecalho(self, titulo: str):
         """Exibe cabeçalho formatado"""
@@ -66,11 +71,13 @@ class BaseCLI:
     
     def exibir_erro(self, mensagem: str):
         """Exibe mensagem de erro"""
-        print(f"Erro: {mensagem}")
+        self.console_logger.log_erro(mensagem)  # Original: print
+        self.file_logger.log_erro(mensagem)     # Adapter: log em arquivo
     
     def exibir_sucesso(self, mensagem: str):
         """Exibe mensagem de sucesso"""
-        print(f"{mensagem}")
+        self.console_logger.log_sucesso(mensagem)  # Original: print
+        self.file_logger.log_sucesso(mensagem)     # Adapter: log em arquivo
     
     def aguardar_enter(self, mensagem: str = "Pressione Enter para continuar..."):
         """Aguarda usuário pressionar Enter"""
