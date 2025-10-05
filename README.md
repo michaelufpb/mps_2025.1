@@ -34,7 +34,7 @@ O **ReservaLab** é um sistema de gerenciamento de laboratórios universitários
 
 ### Diagrama de Classes (Modelo C4 - Nível 4)
 
-![Diagrama de Classes ReservaLab](diagrama_classe.png)
+![Diagrama de Classes ReservaLab](docs/diagrama_classe.png)
 
 *Diagrama completo mostrando todos os padrões de projeto implementados e suas inter-relações*
 
