@@ -1,0 +1,107 @@
+{
+  "usuarios": [
+    {
+      "user_id": "admin",
+      "name": "Administrador",
+      "role": "admin",
+      "password": "Admin123!"
+    },
+    {
+      "user_id": "tiago",
+      "name": "tiagotrindade",
+      "role": "professor",
+      "password": "#TiagoTrindade03"
+    }
+  ],
+  "labs": [
+    {
+      "id": "LAB01",
+      "nome": "Laboratório de Programação I",
+      "capacidade": 30,
+      "equipamentos": [
+        "Computadores Dell",
+        "Projetor",
+        "Ar condicionado",
+        "Quadro branco"
+      ]
+    },
+    {
+      "id": "LAB02",
+      "nome": "Laboratório de Redes de Computadores",
+      "capacidade": 25,
+      "equipamentos": [
+        "Roteadores Cisco",
+        "Switches",
+        "Cabeamento estruturado",
+        "Projetor"
+      ]
+    },
+    {
+      "id": "LAB03",
+      "nome": "Laboratório de Banco de Dados",
+      "capacidade": 20,
+      "equipamentos": [
+        "Servidor Oracle",
+        "Computadores",
+        "Projetor",
+        "Ar condicionado"
+      ]
+    },
+    {
+      "id": "LAB04",
+      "nome": "Laboratório de Inteligência Artificial",
+      "capacidade": 15,
+      "equipamentos": [
+        "GPUs NVIDIA",
+        "Computadores high-end",
+        "Projetor 4K",
+        "Ar condicionado"
+      ]
+    },
+    {
+      "id": "LAB05",
+      "nome": "Laboratório de Desenvolvimento Web",
+      "capacidade": 25,
+      "equipamentos": [
+        "Computadores",
+        "Monitores duplos",
+        "Projetor",
+        "Quadro branco"
+      ]
+    },
+    {
+      "id": "SALA01",
+      "nome": "Sala de Reuniões - CI",
+      "capacidade": 12,
+      "equipamentos": [
+        "Projetor",
+        "Sistema de som",
+        "Mesa de reunião",
+        "Ar condicionado"
+      ]
+    },
+    {
+      "id": "SALA02",
+      "nome": "Sala de Estudos Coletivos",
+      "capacidade": 40,
+      "equipamentos": [
+        "Mesas modulares",
+        "Quadro branco",
+        "Ar condicionado",
+        "WiFi"
+      ]
+    },
+    {
+      "id": "LAB06",
+      "nome": "Laboratório de Sistemas Embarcados",
+      "capacidade": 18,
+      "equipamentos": [
+        "Arduinos",
+        "Raspberry Pi",
+        "Osciloscópios",
+        "Multímetros"
+      ]
+    }
+  ],
+  "reservas": []
+}
